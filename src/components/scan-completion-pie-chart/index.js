@@ -1,0 +1,1 @@
+export { default } from './scan-completion-pie-chart'
