@@ -1,10 +1,10 @@
 import './assets/output.css';
-import SomeView from './views/some-view';
+import ScanCompletionChartWidget from './views/scan-completion-chart-widget';
 
 function App() {
   return (
     <div className='p-2'>
-      <SomeView />
+      <ScanCompletionChartWidget />
     </div>
   );
 }
