@@ -13,7 +13,7 @@ export const scanCompletionChartPieOptions = {
   plugins: {
     legend: {
       position: 'right',
-      color: '#000000',
+      color: '#000000', // TODO - some reason not working 
       labels: {
         padding: 15, // TODO - if you want to change the space between the labels 
         generateLabels: (chart) => {
@@ -27,7 +27,7 @@ export const scanCompletionChartPieOptions = {
           }));
         },
         font: {
-          color: '#000000', // ensure label text is black
+          color: '#000000', // ensure label text is black TODO - some reason not working 
         },
       },
     },
