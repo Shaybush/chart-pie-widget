@@ -1,9 +1,10 @@
 import './assets/output.css';
+import SomeView from './views/some-view';
 
 function App() {
   return (
-    <div className='bg-red-500'>
-      sss
+    <div className='p-2'>
+      <SomeView />
     </div>
   );
 }
