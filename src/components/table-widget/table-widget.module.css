@@ -1,0 +1,15 @@
+.tableCell {
+  color: #0C1222;
+  min-width: 100px;
+}
+
+.textOrange {
+  color: #F8803D;
+}
+
+.truncate {
+  white-space: nowrap;        /* Prevent text from wrapping to the next line */
+  overflow: hidden;           /* Hide any text that overflows the container */
+  text-overflow: ellipsis;    /* Display the ellipsis (...) for overflowed text */
+  max-width: 100%;            /* Make sure it fits within its container's width */
+}

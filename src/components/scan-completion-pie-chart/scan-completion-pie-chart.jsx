@@ -10,9 +10,8 @@ const ScanCompletionPieChart = () => {
   const ref = useRef(null);
   useEffect(() => {
     if (ref) {
-      console.log(ref);
+      // console.log(ref);
     }
-
   }, [])
   const data = {
     labels: scanCompletionChartLabelsConfig,
