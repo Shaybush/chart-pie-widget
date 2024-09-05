@@ -13,3 +13,13 @@
   text-overflow: ellipsis;    /* Display the ellipsis (...) for overflowed text */
   max-width: 100%;            /* Make sure it fits within its container's width */
 }
+
+.tableWrap {
+  min-width: 100%;
+  text-align: left;
+  overflow-x: auto;
+
+  td, th {
+    min-width: 200px; /* TODO - delete if you don't need it  */
+  }
+}

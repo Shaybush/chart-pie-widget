@@ -1,7 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import * as MOCK_DATA from './mocks/TABLE_MOCK_DATA.json'
-import { formatUnixDate, truncateString } from '../../utils/functions';
+import { capitalizeStr, formatUnixDate } from '../../utils/functions';
 import styles from './table-widget.module.css'
+import DotsIcon from './icons/dotsIcon';
+import DocsIcon from './icons/docsIcon';
+import PlainIcon from './icons/plainIcon';
+import PlayIcon from './icons/playIcon';
+import AlertIcon from './icons/alertIcon';
 
 const TableWidget = () => {
   const [data, setData] = useState([]);
@@ -22,42 +27,40 @@ const TableWidget = () => {
       units: element.units,
       tenant_name: element.tenant_name,
       move_out: formatUnixDate(element.move_out),
-      scan_status_with_date: `${element.scan_status} (${formatUnixDate(element.last_scan_date)})`,
+      scan_status_with_date: `${capitalizeStr(element.scan_status)} (${formatUnixDate(element.last_scan_date)})`,
       scan_status: element.scan_status
     }))
   }
 
   return (
     <div className='border border-gray-200 rounded'>
-      <div className="flow-root overflow-hidden">
-        <div className="px-4 sm:px-6 lg:px-8">
-          <table className="w-full text-left overflow-x-auto">
+      <div className="overflow-x-auto whitespace-nowrap">
+        <div className="inline-block min-w-full align-middle">
+          <table className={styles.tableWrap}>
             <thead className="bg-white">
               <tr>
-                <th scope="col" className="relative isolate py-3.5 pr-3 text-left text-sm font-semibold text-gray-900">
+                <th scope="col" className="relative isolate text-left text-sm font-semibold text-gray-900 border-b border-gray-100 p-3">
                   Property
-                  <div className="absolute inset-y-0 right-full -z-10 w-screen border-b border-b-gray-200" />
-                  <div className="absolute inset-y-0 left-0 -z-10 w-screen border-b border-b-gray-200" />
                 </th>
                 <th
                   scope="col"
-                  className="hidden px-3 py-3.5 text-left text-sm font-semibold text-gray-900 sm:table-cell"
+                  className="text-left text-sm font-semibold text-gray-900 border-b border-gray-100 p-3 sm:table-cell"
                 >
                   Units
                 </th>
                 <th
                   scope="col"
-                  className="hidden px-3 py-3.5 text-left text-sm font-semibold text-gray-900 md:table-cell"
+                  className="text-left text-sm font-semibold text-gray-900 border-b border-gray-100 p-3 md:table-cell"
                 >
                   Tenant Name
                 </th>
-                <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+                <th scope="col" className="text-left text-sm font-semibold text-gray-900 border-b border-gray-100 p-3">
                   Move Out
                 </th>
-                <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+                <th scope="col" className="text-left text-sm font-semibold text-gray-900 border-b border-gray-100 p-3">
                   Scan Status
                 </th>
-                <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+                <th scope="col" className="text-left text-sm font-semibold text-gray-900 border-b border-gray-100 p-3">
                   Actions
                 </th>
               </tr>
@@ -65,17 +68,23 @@ const TableWidget = () => {
             <tbody>
               {data.map((data) => (
                 <tr key={data.units}>
-                  <td className={`relative py-4 pr-3 text-sm font-medium ${styles.tableCell} ${styles.truncate}`}>
+                  <td className={`relative p-4 text-sm font-medium border-b border-gray-100`}>
                     {data.property}
-                    <div className="absolute bottom-0 right-full h-px w-screen bg-gray-100" />
-                    <div className="absolute bottom-0 left-0 h-px w-screen bg-gray-100" />
                   </td>
-                  <td className={`px-3 py-4 text-sm sm:table-cell ${styles.tableCell}`}>{data.units}</td>
-                  <td className={`px-3 py-4 text-sm md:table-cell ${styles.tableCell}`}>{data.tenant_name}</td>
-                  <td className={`px-3 py-4 text-sm md:table-cell ${styles.tableCell}`}>{data.move_out}</td>
-                  <td className={`px-3 py-4 text-sm md:table-cell ${colors_key[data.scan_status.toLowerCase()]}`}>{data.scan_status_with_date}</td>
-                  <td className={`px-3 py-4 text-sm md:table-cell ${styles.tableCell}`}>
-                    {/* TODO - add icons here */}
+                  <td className={`p-4 text-sm border-b border-gray-100`}>{data.units}</td>
+                  <td className={`p-4 text-sm border-b border-gray-100`}>{data.tenant_name}</td>
+                  <td className={`p-4 text-sm border-b border-gray-100`}>{data.move_out}</td>
+                  <td className={`p-4 text-sm border-b border-gray-100 flex ${colors_key[data.scan_status.toLowerCase()]}`}>
+                    <span className='pr-1'>{data.scan_status_with_date}</span>
+                    <AlertIcon />
+                  </td>
+                  <td className={`p-4 text-sm border-b border-gray-100`}>
+                    <div className='flex gap-x-4'>
+                      <span className='cursor-pointer'><PlayIcon /></span>
+                      <span className='cursor-pointer'><DocsIcon /></span>
+                      <span className='cursor-pointer'><PlainIcon /></span>
+                      <span className='cursor-pointer'><DotsIcon /></span>
+                    </div>
                   </td>
                 </tr>
               ))}
