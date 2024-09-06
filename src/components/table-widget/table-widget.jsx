@@ -7,6 +7,8 @@ import DocsIcon from './icons/docsIcon';
 import PlainIcon from './icons/plainIcon';
 import PlayIcon from './icons/playIcon';
 import AlertIcon from './icons/alertIcon';
+import { Dropdown, DropdownButton, DropdownItem, DropdownMenu } from '../../shared/components/dropdown';
+import { dropDownItemsConfig } from './config/table.config';
 
 const TableWidget = () => {
   const [data, setData] = useState([]);
@@ -16,6 +18,8 @@ const TableWidget = () => {
     'missing': 'text-red-500',
     'failed': styles.textOrange
   }
+
+
 
   useEffect(() => {
     setData(mapData());
@@ -66,28 +70,42 @@ const TableWidget = () => {
               </tr>
             </thead>
             <tbody>
-              {data.map((data) => (
-                <tr key={data.units}>
-                  <td className={`relative p-4 text-sm font-medium border-b border-gray-100`}>
-                    {data.property}
-                  </td>
-                  <td className={`p-4 text-sm border-b border-gray-100`}>{data.units}</td>
-                  <td className={`p-4 text-sm border-b border-gray-100`}>{data.tenant_name}</td>
-                  <td className={`p-4 text-sm border-b border-gray-100`}>{data.move_out}</td>
-                  <td className={`p-4 text-sm border-b border-gray-100 flex ${colors_key[data.scan_status.toLowerCase()]}`}>
-                    <span className='pr-1'>{data.scan_status_with_date}</span>
-                    <AlertIcon />
-                  </td>
-                  <td className={`p-4 text-sm border-b border-gray-100`}>
-                    <div className='flex gap-x-4'>
-                      <span className='cursor-pointer'><PlayIcon /></span>
-                      <span className='cursor-pointer'><DocsIcon /></span>
-                      <span className='cursor-pointer'><PlainIcon /></span>
-                      <span className='cursor-pointer'><DotsIcon /></span>
-                    </div>
-                  </td>
-                </tr>
-              ))}
+              {data.map((data) => {
+                return (
+                  <tr key={data.units}>
+                    <td className={`relative p-4 text-sm font-medium border-b border-gray-100`}>
+                      {data.property}
+                    </td>
+                    <td className={`p-4 text-sm border-b border-gray-100`}>{data.units}</td>
+                    <td className={`p-4 text-sm border-b border-gray-100`}>{data.tenant_name}</td>
+                    <td className={`p-4 text-sm border-b border-gray-100`}>{data.move_out}</td>
+                    <td className={`p-4 text-sm border-b border-gray-100 flex ${colors_key[data.scan_status.toLowerCase()]}`}>
+                      <span className='pr-1'>{data.scan_status_with_date}</span>
+                      <AlertIcon />
+                    </td>
+                    <td className={`p-4 text-sm border-b border-gray-100`}>
+                      <div className='flex gap-x-4'>
+                        <span className='cursor-pointer'><PlayIcon /></span>
+                        <span className='cursor-pointer'><DocsIcon /></span>
+                        <span className='cursor-pointer'><PlainIcon /></span>
+                        <Dropdown>
+                          <DropdownButton plain aria-label="More options">
+                            <DotsIcon />
+                          </DropdownButton>
+                          <DropdownMenu>
+                            {dropDownItemsConfig.map(item => (
+                              <DropdownItem key={item.label} styleClass='flex items-center gap-x-1'>
+                                <span>{item.icon}</span>
+                                <span>{item.label}</span>
+                              </DropdownItem>
+                            ))}
+                          </DropdownMenu>
+                        </Dropdown>
+                      </div>
+                    </td>
+                  </tr>
+                );
+              })}
             </tbody>
           </table>
         </div>
