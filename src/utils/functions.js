@@ -7,10 +7,6 @@ export function formatUnixDate(unixTime) {
   return `${day}-${month}-${year}`;
 }
 
-export function capitalizeStr(str) {
-  return str[0].toUpperCase() + str.substring(1)
-}
-
 export function truncateString({ str, limit = 50, trail = '...' }) {
   if (isStringEmpty(str)) {
     return '';

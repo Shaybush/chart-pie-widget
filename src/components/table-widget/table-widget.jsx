@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import * as MOCK_DATA from './mocks/TABLE_MOCK_DATA.json'
-import { capitalizeStr, formatUnixDate } from '../../utils/functions';
+import { formatUnixDate } from '../../utils/functions';
 import styles from './table-widget.module.css'
 import DotsIcon from './icons/dotsIcon';
 import DocsIcon from './icons/docsIcon';
@@ -9,6 +9,7 @@ import PlayIcon from './icons/playIcon';
 import AlertIcon from './icons/alertIcon';
 import { Dropdown, DropdownButton, DropdownItem, DropdownMenu } from '../../shared/components/dropdown';
 import { dropDownItemsConfig } from './config/table.config';
+import Truncate from '../../shared/components/truncate';
 
 const TableWidget = () => {
   const [data, setData] = useState([]);
@@ -31,7 +32,7 @@ const TableWidget = () => {
       units: element.units,
       tenant_name: element.tenant_name,
       move_out: formatUnixDate(element.move_out),
-      scan_status_with_date: `${capitalizeStr(element.scan_status)} (${formatUnixDate(element.last_scan_date)})`,
+      scan_status_with_date: `${element.scan_status} (${formatUnixDate(element.last_scan_date)})`,
       scan_status: element.scan_status
     }))
   }
@@ -73,13 +74,13 @@ const TableWidget = () => {
               {data.map((data) => {
                 return (
                   <tr key={data.units}>
-                    <td className={`relative p-4 text-sm font-medium border-b border-gray-100`}>
-                      {data.property}
+                    <td className={`relative p-4 text-sm font-medium border-b border-gray-100 truncate`}>
+                      <Truncate width={'200px'}>{data.property}</Truncate>
                     </td>
                     <td className={`p-4 text-sm border-b border-gray-100`}>{data.units}</td>
                     <td className={`p-4 text-sm border-b border-gray-100`}>{data.tenant_name}</td>
                     <td className={`p-4 text-sm border-b border-gray-100`}>{data.move_out}</td>
-                    <td className={`p-4 text-sm border-b border-gray-100 flex gap-x-1 ${colors_key[data.scan_status.toLowerCase()]}`}>
+                    <td className={`p-4 text-sm border-b border-gray-100 flex gap-x-1 capitalize ${colors_key[data.scan_status.toLowerCase()]}`}>
                       <span>{data.scan_status_with_date}</span>
                       <AlertIcon />
                     </td>
