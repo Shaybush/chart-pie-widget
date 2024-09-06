@@ -79,8 +79,8 @@ const TableWidget = () => {
                     <td className={`p-4 text-sm border-b border-gray-100`}>{data.units}</td>
                     <td className={`p-4 text-sm border-b border-gray-100`}>{data.tenant_name}</td>
                     <td className={`p-4 text-sm border-b border-gray-100`}>{data.move_out}</td>
-                    <td className={`p-4 text-sm border-b border-gray-100 flex ${colors_key[data.scan_status.toLowerCase()]}`}>
-                      <span className='pr-1'>{data.scan_status_with_date}</span>
+                    <td className={`p-4 text-sm border-b border-gray-100 flex gap-x-1 ${colors_key[data.scan_status.toLowerCase()]}`}>
+                      <span>{data.scan_status_with_date}</span>
                       <AlertIcon />
                     </td>
                     <td className={`p-4 text-sm border-b border-gray-100`}>
