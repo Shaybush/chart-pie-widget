@@ -39,7 +39,7 @@ export const DropdownMenu = ({ isOpen, children, anchor }) => {
   return (
     isOpen && (
       <div
-        className={`absolute z-10 -top-4 right-full w-48 bg-white shadow-lg rounded-lg py-2`}
+        className={`absolute z-10 top-6 right-0 w-48 bg-white shadow-lg rounded-lg py-2`}
       >
         {children}
       </div>
