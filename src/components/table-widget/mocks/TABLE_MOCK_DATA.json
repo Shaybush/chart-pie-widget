@@ -5,7 +5,10 @@
     "tenant_name": "Bahare Yousef",
     "move_out": 1719792000,
     "scan_status": "missing",
-    "last_scan_date": 1725453641
+    "last_scan_date": 1725453641,
+    "meta_data" : {
+      
+    }
   },
   {
     "property": "Leibnizstraße 96",

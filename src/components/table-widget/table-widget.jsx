@@ -2,25 +2,11 @@ import React, { useEffect, useState } from 'react'
 import * as MOCK_DATA from './mocks/TABLE_MOCK_DATA.json'
 import { formatUnixDate } from '../../utils/functions';
 import styles from './table-widget.module.css'
-import DotsIcon from './icons/dotsIcon';
-import DocsIcon from './icons/docsIcon';
-import PlainIcon from './icons/plainIcon';
-import PlayIcon from './icons/playIcon';
-import AlertIcon from './icons/alertIcon';
-import { Dropdown, DropdownButton, DropdownItem, DropdownMenu } from '../../shared/components/dropdown';
-import { dropDownItemsConfig } from './config/table.config';
-import Truncate from '../../shared/components/truncate';
+import { headerConfig } from './config/table.config';
+import TableBodyRow from './components/table-body-row';
 
 const TableWidget = () => {
   const [data, setData] = useState([]);
-
-  const colors_key = {
-    'done': 'text-green-500',
-    'missing': 'text-red-500',
-    'failed': styles.textOrange
-  }
-
-
 
   useEffect(() => {
     setData(mapData());
@@ -44,70 +30,19 @@ const TableWidget = () => {
           <table className={styles.tableWrap}>
             <thead className="bg-white">
               <tr>
-                <th scope="col" className="relative isolate text-left text-sm font-semibold text-gray-900 border-b border-gray-100 p-3">
-                  Property
-                </th>
-                <th
-                  scope="col"
-                  className="text-left text-sm font-semibold text-gray-900 border-b border-gray-100 p-3 sm:table-cell"
-                >
-                  Units
-                </th>
-                <th
-                  scope="col"
-                  className="text-left text-sm font-semibold text-gray-900 border-b border-gray-100 p-3 md:table-cell"
-                >
-                  Tenant Name
-                </th>
-                <th scope="col" className="text-left text-sm font-semibold text-gray-900 border-b border-gray-100 p-3">
-                  Move Out
-                </th>
-                <th scope="col" className="text-left text-sm font-semibold text-gray-900 border-b border-gray-100 p-3">
-                  Scan Status
-                </th>
-                <th scope="col" className="text-left text-sm font-semibold text-gray-900 border-b border-gray-100 p-3">
-                  Actions
-                </th>
+                {headerConfig.map(header => (
+                  <th key={header.key} scope="col" className="relative isolate text-left text-sm font-semibold text-gray-900 border-b border-gray-100 p-3">
+                    {header.value}
+                  </th>
+                ))}
               </tr>
             </thead>
             <tbody>
-              {data.map((data) => {
-                return (
-                  <tr key={data.units}>
-                    <td className={`relative p-4 text-sm font-medium border-b border-gray-100 truncate`}>
-                      <Truncate width={'200px'}>{data.property}</Truncate>
-                    </td>
-                    <td className={`p-4 text-sm border-b border-gray-100`}>{data.units}</td>
-                    <td className={`p-4 text-sm border-b border-gray-100`}>{data.tenant_name}</td>
-                    <td className={`p-4 text-sm border-b border-gray-100`}>{data.move_out}</td>
-                    <td className={`p-4 text-sm border-b border-gray-100 flex gap-x-1 capitalize ${colors_key[data.scan_status.toLowerCase()]}`}>
-                      <span>{data.scan_status_with_date}</span>
-                      <AlertIcon />
-                    </td>
-                    <td className={`p-4 text-sm border-b border-gray-100`}>
-                      <div className='flex gap-x-4'>
-                        <span className='cursor-pointer'><PlayIcon /></span>
-                        <span className='cursor-pointer'><DocsIcon /></span>
-                        <span className='cursor-pointer'><PlainIcon /></span>
-                        <Dropdown>
-                          <DropdownButton plain aria-label="More options">
-                            <DotsIcon />
-                          </DropdownButton>
-                          <DropdownMenu>
-                            {dropDownItemsConfig.map(item => (
-                              <DropdownItem key={item.label} styleClass='flex items-center gap-x-1'>
-                                <span>{item.icon}</span>
-                                <span>{item.label}</span>
-                              </DropdownItem>
-                            ))}
-                          </DropdownMenu>
-                        </Dropdown>
-                      </div>
-                    </td>
-                  </tr>
-                );
-              })}
+              {data.map((rowData) => (
+                <TableBodyRow key={rowData.units} rowData={rowData} />
+              ))}
             </tbody>
+
           </table>
         </div>
       </div>
