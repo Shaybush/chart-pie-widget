@@ -19,7 +19,8 @@ const TableWidget = () => {
       tenant_name: element.tenant_name,
       move_out: formatUnixDate(element.move_out),
       scan_status_with_date: `${element.scan_status} (${formatUnixDate(element.last_scan_date)})`,
-      scan_status: element.scan_status
+      scan_status: element.scan_status,
+      meta_data: element.meta_data
     }))
   }
 
@@ -42,7 +43,6 @@ const TableWidget = () => {
                 <TableBodyRow key={rowData.units} rowData={rowData} />
               ))}
             </tbody>
-
           </table>
         </div>
       </div>

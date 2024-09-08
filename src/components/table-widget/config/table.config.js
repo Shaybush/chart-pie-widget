@@ -50,3 +50,13 @@ export const colorKeysConfig = {
   'missing': 'text-red-500',
   'failed': styles.textOrange
 }
+
+export const metadataFieldLabelsConfig = {
+  'name': 'Name',
+  'email': 'Email',
+  'mobile': 'Mobile',
+  'move_in_date': 'Move-In Date',
+  'move_out_date': 'Move-Out Date',
+  'security_reposit': 'Security Deposit',
+  'notice': 'Notice',
+}

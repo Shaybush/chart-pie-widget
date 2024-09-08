@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useOpenController } from '../../hooks/useOpenController';
 import DotsIcon from '../../icons/dotsIcon';
 import DocsIcon from '../../icons/docsIcon';
@@ -7,12 +7,37 @@ import PlayIcon from '../../icons/playIcon';
 import AlertIcon from '../../icons/alertIcon';
 import { Dropdown, DropdownButton, DropdownItem, DropdownMenu } from '../../../../shared/components/dropdown';
 import Truncate from '../../../../shared/components/truncate';
-import { colorKeysConfig, dropDownItemsConfig } from '../../config/table.config';
+import { colorKeysConfig, dropDownItemsConfig, metadataFieldLabelsConfig } from '../../config/table.config';
 import ArrowRightIcon from '../../icons/arrowRightIcon';
 import TableBodyRowTenantDetails from '../table-body-row-tenant-details';
+import ActionLog from '../action-log';
+import { formatUnixDate } from '../../../../utils/functions';
 
 const TableBodyRow = ({ rowData }) => {
   const [isOpen, toggle] = useOpenController(false);
+  const [metaDataKeys, setMetaDataKeys] = useState([]);
+  const [actionLogs, setActionLogs] = useState([]);
+
+  useEffect(() => {
+    getMetaDataKeys();
+    getActionLogDetails();
+  }, []);
+
+  const getMetaDataKeys = () => {
+    const keys = Object.keys(rowData.meta_data).filter(k => k !== 'action_logs');
+    setMetaDataKeys(keys);
+  }
+
+  const getActionLogDetails = () => {
+    const logs = rowData.meta_data.action_logs;
+    const sortedActions = logs.sort((a, b) => b.date - a.date);
+    setActionLogs(sortedActions.map(action => (
+      {
+        title: action.title,
+        date: formatUnixDate(action.date)
+      }
+    )))
+  }
 
   // Handler for stopping click propagation in the last <td>
   const handleActionClick = (e) => {
@@ -81,21 +106,19 @@ const TableBodyRow = ({ rowData }) => {
           </a>
         </td>
         {/* tenant name */}
-        <td className='py-3'>
-          <TableBodyRowTenantDetails header={'Name'} value={'Mr. Fabian Schleg'} />
-          <TableBodyRowTenantDetails header={'Email'} value={'Mr. Fabian Schleg'} />
-          <TableBodyRowTenantDetails header={'Mobile'} value={'Mr. Fabian Schleg'} />
-          <TableBodyRowTenantDetails header={'Move-In Date'} value={'Mr. Fabian Schleg'} />
-          <TableBodyRowTenantDetails header={'Move-Out Date'} value={'Mr. Fabian Schleg'} />
-          <TableBodyRowTenantDetails header={'Security Deposit'} value={'Mr. Fabian Schleg'} />
-          <TableBodyRowTenantDetails header={'Notice'} value={'Mr. Fabian Schleg'} />
+        <td className='py-3 align-top'>
+          {metaDataKeys.map(key => (
+            <TableBodyRowTenantDetails key={key} header={metadataFieldLabelsConfig[key]} value={rowData?.meta_data[key]} />
+          ))}
         </td>
         {/* move out */}
         <td></td>
         {/* scan status */}
         <td></td>
         {/* actions */}
-        <td>actions</td>
+        <td className='py-3 align-top'>
+          <ActionLog actions={actionLogs} />
+        </td>
       </tr>
       }
     </>
