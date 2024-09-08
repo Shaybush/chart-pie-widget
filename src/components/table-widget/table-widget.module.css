@@ -14,7 +14,7 @@
   max-width: 100%;            /* Make sure it fits within its container's width */
 }
 
-.tableWrap {
+.table {
   min-width: 100%;
   text-align: left;
   overflow-x: auto;
@@ -22,4 +22,8 @@
   td, th {
     min-width: 200px; /* TODO - delete if you don't need it  */
   }
+}
+
+.wrappedTable {
+  min-height: calc(100vh - 400px);
 }

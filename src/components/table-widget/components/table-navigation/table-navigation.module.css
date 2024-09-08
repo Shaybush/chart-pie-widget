@@ -1,0 +1,16 @@
+nav {
+  width: 98vw;
+}
+
+button:disabled {
+  opacity: 0.75;
+  cursor: not-allowed;
+
+  &:hover{
+    background: none;
+  }
+
+  & > * {
+    opacity: 0.75;
+  }
+}
